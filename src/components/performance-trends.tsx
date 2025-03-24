@@ -1,9 +1,40 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts';
 
+interface WeeklyData {
+  week: string;
+  weekNum: number;
+  dateRange: string;
+  clicks: number;
+  conversions: number;
+  convRate: number;
+  costPerConv: number;
+}
+
+interface WeeklyChanges {
+  week: string;
+  weekNum: number;
+  clicksChange: number;
+  conversionsChange: number;
+  convRateChange: number;
+  cpcChange: number;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: any[];
+  label?: string;
+}
+
+interface ChangesTooltipProps {
+  active?: boolean;
+  payload?: any[];
+  label?: string;
+}
+
 const PerformanceTrendsChart = () => {
   // Weekly performance data
-  const weeklyData = [
+  const weeklyData: WeeklyData[] = [
     { 
       week: 'Week 1', 
       weekNum: 1,
@@ -43,7 +74,7 @@ const PerformanceTrendsChart = () => {
   ];
   
   // Weekly changes data
-  const weeklyChanges = [
+  const weeklyChanges: WeeklyChanges[] = [
     { 
       week: 'Week 2', 
       weekNum: 2,
@@ -71,9 +102,13 @@ const PerformanceTrendsChart = () => {
   ];
 
   // Custom tooltip for weekly data
-  const CustomTooltip = ({ active, payload, label }) => {
+  const CustomTooltip = ({ 
+    active, 
+    payload, 
+    label 
+  }: CustomTooltipProps) => {
     if (active && payload && payload.length) {
-      const data = payload[0].payload;
+      const data = payload[0].payload as WeeklyData;
       return (
         <div className="bg-white p-3 border border-gray-200 shadow-md rounded">
           <p className="font-bold text-sm">{data.week} ({data.dateRange})</p>
@@ -88,9 +123,13 @@ const PerformanceTrendsChart = () => {
   };
 
   // Custom tooltip for weekly changes
-  const ChangesTooltip = ({ active, payload, label }) => {
+  const ChangesTooltip = ({ 
+    active, 
+    payload, 
+    label 
+  }: ChangesTooltipProps) => {
     if (active && payload && payload.length) {
-      const data = payload[0].payload;
+      const data = payload[0].payload as WeeklyChanges;
       return (
         <div className="bg-white p-3 border border-gray-200 shadow-md rounded">
           <p className="font-bold text-sm">{data.week} (Week-over-Week)</p>
@@ -128,7 +167,7 @@ const PerformanceTrendsChart = () => {
               <XAxis dataKey="week" />
               <YAxis yAxisId="left" />
               <YAxis yAxisId="right" orientation="right" />
-              <Tooltip content={<CustomTooltip />} />
+              <Tooltip content={<CustomTooltip active={false} payload={[]} label="" />} />
               <Legend />
               <Line yAxisId="left" type="monotone" dataKey="clicks" stroke="#8884d8" name="Clicks" />
               <Line yAxisId="right" type="monotone" dataKey="conversions" stroke="#82ca9d" name="Conversions" />
@@ -147,7 +186,7 @@ const PerformanceTrendsChart = () => {
               <XAxis dataKey="week" />
               <YAxis yAxisId="left" />
               <YAxis yAxisId="right" orientation="right" />
-              <Tooltip content={<CustomTooltip />} />
+              <Tooltip content={<CustomTooltip active={false} payload={[]} label="" />} />
               <Legend />
               <Line yAxisId="left" type="monotone" dataKey="convRate" stroke="#ff7300" name="Conv. Rate (%)" />
               <Line yAxisId="right" type="monotone" dataKey="costPerConv" stroke="#0088fe" name="Cost per Conv. ($)" />
@@ -165,7 +204,7 @@ const PerformanceTrendsChart = () => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="week" />
               <YAxis tickFormatter={(value) => `${value}%`} />
-              <Tooltip content={<ChangesTooltip />} />
+              <Tooltip content={<ChangesTooltip active={false} payload={[]} label="" />} />
               <Legend />
               <Bar dataKey="clicksChange" fill="#8884d8" name="Clicks Change %" />
               <Bar dataKey="conversionsChange" fill="#82ca9d" name="Conversions Change %" />

@@ -2,7 +2,7 @@
   "name": "react-reports",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://username.github.io/react-reports",
+  "homepage": "https://pixelsock.github.io/react-reports",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
