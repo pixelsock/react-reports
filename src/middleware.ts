@@ -9,6 +9,9 @@ export function middleware(request: NextRequest) {
   response.headers.set('X-Frame-Options', 'ALLOWALL');
   response.headers.set('Content-Security-Policy', 'frame-ancestors *');
   response.headers.set('Access-Control-Allow-Origin', '*');
+  
+  // Disable OpenGraph preview for embedding
+  response.headers.set('X-Robots-Tag', 'noindex');
 
   return response;
 }
