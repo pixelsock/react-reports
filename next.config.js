@@ -2,16 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // Configure for GitHub Pages
-  output: 'export',
-  // GitHub Pages configuration
-  basePath: process.env.GITHUB_ACTIONS ? '/react-reports' : '',
-  assetPrefix: process.env.GITHUB_ACTIONS ? '/react-reports/' : '',
+  // Configure for Vercel deployment
+  output: 'standalone',
   images: {
     unoptimized: true,
   },
-  // Disable server-side features for static export
-  trailingSlash: true,
 }
 
 module.exports = nextConfig
