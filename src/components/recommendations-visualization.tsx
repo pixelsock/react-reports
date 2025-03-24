@@ -1,7 +1,15 @@
 import React from 'react';
 
+interface Recommendation {
+  category: string;
+  recommendation: string;
+  impact: string;
+  effort: string;
+  details: string;
+}
+
 const RecommendationsVisualization = () => {
-  const recommendations = [
+  const recommendations: Recommendation[] = [
     {
       category: "Device Strategy",
       recommendation: "Increase budget allocation for Mobile phones which has the best conversion performance",
@@ -40,7 +48,7 @@ const RecommendationsVisualization = () => {
   ];
 
   // Impact color mapping
-  const getImpactColor = (impact) => {
+  const getImpactColor = (impact: string): string => {
     switch (impact) {
       case 'High':
         return 'bg-red-100 text-red-800 border-red-200';
@@ -54,7 +62,7 @@ const RecommendationsVisualization = () => {
   };
 
   // Effort color mapping
-  const getEffortColor = (effort) => {
+  const getEffortColor = (effort: string): string => {
     switch (effort) {
       case 'Low':
         return 'bg-green-100 text-green-800 border-green-200';
